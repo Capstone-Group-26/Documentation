@@ -1,0 +1,220 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{setspace}
+\setlength\parindent{0pt}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{longtable}
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		BBM}
+\def \CapstoneTeamNumber{		26}
+\def \GroupMemberOne{			Aidan Grimshaw}
+\def \GroupMemberTwo{			Khoa Tran}
+\def \GroupMemberThree{			Aaron Leenknecht}
+\def \CapstoneProjectName{		Baby Body Measurement Using Computer Vision}
+\def \CapstoneSponsorPerson{		D. Kevin McGrath}
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+				%Requirements Document
+				% Technology Review
+				%Design Document
+				Fall Progress Report
+				}
+			
+\newcommand{\NameSigPair}[1]{\par
+\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\par\vspace{-12pt} \textit{\tiny\noindent
+\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+ %3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
+    \pagenumbering{gobble}
+    \begin{singlespace}
+    %	\includegraphics[height=4cm]{coe_v_spot1}
+        \hfill 
+        % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+        %\includegraphics[height=4cm]{CompanyLogo}   
+        \par\vspace{.2in}
+        \centering
+        \scshape{
+            \huge CS Capstone \DocType \par
+            {\large\today}\par
+            \vspace{.5in}
+            \textbf{\Huge\CapstoneProjectName}\par
+            %\vspace{.7in}
+            %\begin{abstract}
+                %This document will describe the design viewpoints and implementation behind the four components of the baby body measurement application, and how they will interact to make up the application as a whole. The four components are the head circumference measurement, height measurement, user interface design, and local database management system.
+            %\end{abstract}
+            \vspace{10mm}
+            %\vfill
+            {\large Prepared for}\par
+            \vspace{5mm}
+            % \Huge \CapstoneSponsorCompany\par
+            %\vspace{5mm}
+            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            \vspace{5mm}
+            {\large Prepared by }\par
+            \vspace{5mm}
+            Group\CapstoneTeamNumber\par
+            % 5. comment out the line below this one if you do not wish to name your team
+            \CapstoneTeamName\par 
+            \vspace{5pt}
+            {\Large
+                %\NameSigPair{\GroupMemberOne}\par
+                %\NameSigPair{\GroupMemberTwo}\par
+                %\NameSigPair{\GroupMemberThree}\par
+                
+                \GroupMemberOne\par
+                \GroupMemberTwo\par
+                \GroupMemberThree\par
+            }
+            \vspace{.8in}
+        }
+        \begin{abstract}
+            This document chronicles and details the team's progress by the end of Fall 2019. It also briefly recaps the project's goals and list all problems and solutions the team have encountered.
+        \end{abstract}     
+    \end{singlespace}
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+% 7. uncomment this (if applicable). Consider adding a page break.
+%\listoffigures
+%\listoftables
+\clearpage
+
+
+\section{Project's Purposes and Goals}
+The project involves designing an iOS application that uses computer vision to measure a baby's body, specifically its head circumference and height. The goal is to mostly automate and simplify the cumbersome manual process currently done on the baby. Using the application, the user can use an iOS device to:
+\begin{itemize}
+    \item Take measurements, either by emulating the camera as a tape measure or simply taking a picture of the baby
+    \item Store measurements locally
+    \item Track the baby's growth over time
+    \item Compare the growth to a standardized growth chart
+\end{itemize}
+
+\section{Progress}
+The team has done technology reviews on the core components of the application and developed a design plan. We are not behind on the milestones set by the Capstone instructors. All that's left is waiting on the client's verification of the design plan.
+
+\section{Problems and Solutions}
+Going into the project, the team had several problems:
+\begin{itemize}
+    \item No iOS development experience
+    \item Lack of proper equipment for development and testing
+\end{itemize}
+
+\subsubsection{Development Experience}
+None of the team members have experience with iOS development, in particular Swift, ARKit, and the Xcode IDE. Because the project spans almost 9 months and has an education components, this issue was to be expected. However, after looking deeply into various technologies and attending an ARKit workshop, the team developed a firmer idea of the implementation, as is seen in our design document.
+
+\subsubsection{Lack of Equipment}
+The team has a Mac mini and an iPhone 11 to develop and test the application, respectively; however, not all members have them. This will be a persistent problem for the duration of the project. The Capstone instructors have set up two Mac minis which the team might be able to remotely access, but whether multi-seat access is configured (as there are other teams that need Macs) or if one could connect an iOS device to an intermediary non-Mac machine which remotely accesses a Mac is uncertain. In order to use ARKit, an iOS device needs to be wired to a Mac machine running Xcode.
+
+The solution to this problem is yet to be seen; however, one team member at least has his own Mac mini and iPhone to develop on, though this is not ideal.
+
+\section{Retrospective}
+
+% positives column: anything good that happened
+% deltas column: changes that need to be implemented
+% actions column: specific actions that will be implemented in order to create the necessary changes
+
+\begin{longtable}{ | p{0.075\linewidth} | p{0.3\linewidth} | p{0.3\linewidth} | p{0.3\linewidth} |} \hline
+  & Positives & Deltas & Actions \\ \hline
+  	Week 1 
+  	&
+    Team was all assigned to the Baby Body Measurement group.
+    &
+    No changes needed at this point in time.
+    &
+    Researched background information on the problem.
+     \\ \hline
+  	Week 2 
+  	&
+    Worked on individual problem statements.
+    &
+    Talked to client to figure out exactly what they were seeking from the application so that necessary changes could be made.
+    &
+    Independent research into the scope of the problem and what it entails.
+     \\ \hline
+    Week 3 
+  	&
+
+  	Completed requirements document for peer review.
+  	
+  	Turned in group final draft Problem Statement
+    &
+    Problem statement was updated after reviewing each individuals problem statements. Combined the best parts of each individuals problem statement into the final group problem statement.
+    &
+    Revisions to requirements document using peer review advice.
+    \\ \hline
+    Week 4 
+    &
+    Completed final draft of requirements document
+    &
+    Ideas needed to change based on client wants, such as native ARkit use.
+    &
+    Personally tested a few pieces of software to check if functionality matched our needs.
+    \\ \hline
+  	Week 5 
+  	&
+    Individual tech reviews were started and achieved a good first draft.
+    &
+    A few ideas hit roadblocks in terms of hardware required so we had to seek out new methods that were feasible.
+    &
+    We individually and as a group did research/testing on pieces of software for compatibility testing.
+    \\ \hline
+  	Week 6 
+  	&
+  	Turned in final draft of Tech Review
+  	&
+    Did more background research on the technologies and strategies involved in the project implementation.
+    &
+  	Revisions to requirements document using peer review.
+  	
+  	\\ \hline
+  	Week 7 
+  	&
+  	Completed first draft of design document for peer review.
+  	&
+  	Group needed to meet up about a few design decisions after individual tech reviews. Changes to the application needed to be discussed and finalized as a group.
+  	&
+  	Needed to revise design document based on peer review.
+  	\\ \hline
+    Week 8 
+    &
+    Worked on final draft of design document.
+  	&
+    Grammatical errors were pointed out in documentation that need to be fixed. Additional content was required in documentation.
+  	&
+    Needed to add some citations to the design document.
+    
+    \\ \hline
+    Week 9 
+    &
+    Completed final draft of Design Document.
+    
+  	This week was thanksgiving, there was no new documentation assigned.
+  	&
+  	Timeline, gantt chart and abbreviations table needed to be put into the design document.
+  	&
+    Polished the design document based on TA recommendations and then turned in final copy.
+  	\\ \hline
+    Week 10 
+    &
+  	Completed group progress report.
+  	&
+  	Client needed to respond to documentation with acceptance.
+  	&
+   	Client was sent all documentation along with given a heads up on incoming survey from the college. Dates were given on a timeline that needed to be followed.
+   	\\ \hline
+\end{longtable}
+
+
+
+\end{document}

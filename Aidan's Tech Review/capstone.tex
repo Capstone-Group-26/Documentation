@@ -1,0 +1,166 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{setspace}
+\setlength\parindent{0pt}
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		BBM}
+\def \CapstoneTeamNumber{		26}
+\def \GroupMemberOne{			Aidan Grimshaw}
+\def \GroupMemberTwo{			Aidan Grimshaw}
+\def \CapstoneProjectName{		Baby Body Measurement Using Computer Vision}
+\def \CapstoneSponsorPerson{		D. Kevin McGrath}
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+				%Requirements Document
+				Technology Review
+				%Design Document
+				%Progress Report
+				}
+			
+\newcommand{\NameSigPair}[1]{\par
+\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\par\vspace{-12pt} \textit{\tiny\noindent
+\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+% 3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
+    \pagenumbering{gobble}
+    \begin{singlespace}
+    %	\includegraphics[height=4cm]{coe_v_spot1}
+        \hfill 
+        % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+        %\includegraphics[height=4cm]{CompanyLogo}   
+        \par\vspace{.2in}
+        \centering
+        \scshape{
+            \huge CS Capstone \DocType \par
+            {\large\today}\par
+            \vspace{.5in}
+            \textbf{\Huge\CapstoneProjectName}\par
+            \vfill
+            {\large Prepared for}\par
+            \Huge \CapstoneSponsorCompany\par
+            \vspace{5pt}
+            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            {\large Prepared by }\par
+            Group\CapstoneTeamNumber\par
+            % 5. comment out the line below this one if you do not wish to name your team
+            \CapstoneTeamName\par 
+            \vspace{5pt}
+            {\Large
+                \NameSigPair{\GroupMemberOne}\par
+                \NameSigPair{\GroupMemberTwo}\par
+                \NameSigPair{\GroupMemberThree}\par
+            }
+            \vspace{20pt}
+        }
+        \begin{abstract}
+  The problem is simply that the manual measurement process for a child is labor intensive and can be improved. The solution is leveraging computer vision to automatically get all needed measurements from a single picture of the child. This will enable parents to get this information quicker, cheaper, and in areas where medical providers are not easily available.
+        \end{abstract}     
+    \end{singlespace}
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+% 7. uncomment this (if applicable). Consider adding a page break.
+%\listoffigures
+%\listoftables
+\clearpage
+
+% 8. now you write!
+\section{Project Role}
+My role in the project is to collaborate on implementing the measurement functionality for the Baby subjects as well as creating a persistent data store for the results of those measurements in a structured DB format.
+
+\section{Head Circumference Estimation} 
+
+\subsection{Overview}
+There are roughly two ways that distance can be measured using a mobile phone camera.\\
+
+1. A measurement can be created using reference object with known dimensions. The reference dimensions are used to build a mapping from number of pixels to distance. From this mapping, other objects in the image can be measured, assuming that they have the same depth from the camera as the reference object\cite{openCV}.\\
+
+2. A measurement can be created by using video frames and motion sensors to find the dimensions of an object. Using the motion sensors of the mobile phone, when the phone moves, the phone can tell roughly the distance it moved. Using the image data from the starting point of the movement and the ending point of the movement, the phone software can triangulate the distance to the object from the phone, and from that get the dimensions of the object.\\
+
+Using either of the methods outlined above, a point to point measurement can be taken from one side of the subject's head to the other side. This represents the subject's head diameter. Using the subject's head diameter, their head circumference can be derived by multiplying the diameter by \pi.
+
+\subsection{Options}
+
+\subsubsection{OpenCV}
+OpenCV has a long heritage of being used on image processing systems since the early days of computer vision. It has a very complex API that can be used natively on many different platforms, including Windows, IOS, and Android. OpenCV is first and foremost a toolkit, so any solution built using it would likely have to be conceptually simpler than one that is built externally. Researching OpenCV object measurement implementations online, the most common method is using a reference object with known dimensions and extrapolate the distance to the new object as is explained in option 1 of the overview. This makes sense because with low level implementation of OpenCV, more complex implementations become difficult \cite{openCV}. 
+
+\subsubsection{ARKit}
+ARKit is a computer vision and augmented reality framework wrapped into one, with multiple features that allow the user to map and interact with the environment around them. The most commonly used is the measurement feature, which implements the method outlined in option 2 of the overview. However there are also additional addons, like pose estimation and automatic height estimation that come with the latest version of ARKit \cite{ARKit}. 
+
+\subsubsection{ARCore}
+ARCore is Google's cross platform implementation of the ARKit feature set. It can be used in Android, IOS, Unity, and Unreal engine. It implements the method outlined in option 2 of the overview, with measurement points working in points far away from each other in different views of the scene using ARCore's cloud anchors feature \cite{ARCore}.
+
+\subsection{Discussion}
+
+Each of the options available has drawbacks and benefits. The OpenCV reference object method works well on flat surfaces, but will be more difficult where there are multiple layers of depth involved in an image. ARKit's implementation is solid and it's API is well built, but documentation is lacking at times, and some features are limited to the latest Iphone, which would make testing difficult and limit adoption of the application. Finally, ARCore works for both Android and IOS making testing easier, and has no downsides in this case.
+
+\subsection{Conclusion}
+The team will use ARKit to implement this feature because it has pose estimation built in, which will keep the project with as few dependencies as possible. Pose estimation will be used to find the edges of the baby's head, which will then be used as measurement starting points.
+
+
+\section{Height Estimation}
+
+\subsection{Overview}
+
+There are roughly two ways that distance can be measured using a mobile phone camera.\\
+
+1. A measurement can be created using reference object with known dimensions. The reference dimensions are used to build a mapping from number of pixels to distance. From this mapping, other objects in the image can be measured, assuming that they have the same depth from the camera as the reference object\cite{openCV}.\\
+
+2. A measurement can be created by using video frames and motion sensors to find the dimensions of an object. Using the motion sensors of the mobile phone, when the phone moves, the phone can tell roughly the distance it moved. Using the image data from the starting point of the movement and the ending point of the movement, the phone software can triangulate the distance to the object from the phone, and from that get the dimensions of the object.\\
+
+Height estimation can be done using the same basic building blocks as head circumference. However, there is an additional complication. Since the subject of the measurement may not necessarily be standing straight, calves, thighs, torso and head must be measured individually, and their values combined to get the overall height of the subject.\\
+
+In order to accomplish this task we will employ pose estimation technology to get the starting and ending points for all of the sections of the body outlined above. Pose estimation finds the joints of a person figure in an image. Using the points gathered from the pose estimation, we can combine the points with native measurement frameworks like ARKit or ARCore to get all distances between the points picked out, and from there, body length.\\
+
+ARKit has pose estimation built into the framework, and doesn't require any external dependencies.
+
+
+\subsection{Options}
+\subsubsection{OpenCV}
+OpenCV has a long heritage of being used on image processing systems since the early days of computer vision. It has a very complex API that can be used natively on many different platforms, including Windows, IOS, and Android. OpenCV is first and foremost a toolkit, so any solution built using it would likely have to be conceptually simpler than one that is built externally. Researching OpenCV object measurement implementations online, the most common method is using a reference object with known dimensions and extrapolate the distance to the new object as is explained in option 1 of the overview. This makes sense because with low level implementation of OpenCV, more complex implementations become difficult \cite{openCV}. 
+
+\subsubsection{ARKit}
+
+ARKit is a computer vision and augmented reality framework wrapped into one, with multiple features that allow the user to map and interact with the environment around them. The most commonly used is the measurement feature, which implements the method outlined in option 2 of the overview. However there are also additional addons, like pose estimation and automatic height estimation that come with the latest version of ARKit \cite{ARKit}. 
+
+\subsubsection{ARCore}
+ARCore is Google's cross platform implementation of the ARKit feature set. It can be used in Android, IOS, Unity, and Unreal engine. It implements the method outlined in option 2 of the overview, with measurement points working in points far away from each other in different views of the scene using ARCore's cloud anchors feature. ARCore doesn't come with pose estimation functionality built in, and must be combined with any number of open source pose estimation models online. We may try it in conjunction with PoseNet from TensorFlow as a good starting place \cite{ARCore}.
+
+\subsection{Discussion}
+It will be very difficult to use OpenCV to calculate the whole baby height because the object reference model used by OpenCV is not accurate when parts of the image are at different depths than other parts of the image. Since the Baby may not be standing straight, the head for example might be at a different depth than the feet. This would make the object reference based system inaccurate. ARCore would work relatively well to measure height once it is combined with PoseNet or others, but this cannot match the implementation simplicity of ARCore's automatic height estimation feature.
+
+\subsection{Conclusion}
+The team will use ARKit because the automatic height measurement feature will make implementation of this feature trivial if it works well. Even if it doesn't, we can use ARKit's built in pose estimation to easily and natively implement the feature we need.
+
+\section{Local Database}
+
+\subsection{Overview}
+In order to track the growth progress of the subject, a persistent data store must be used to keep track of historical data. We have decided to implement this in the form of a local database on the phone because it minimizes any cost load we would have storing the data, would make the service accessible to users even without internet, and made sure that the user data stayed private if they want it to be.\\
+
+\subsection{Options}
+\subsubsection{SQLite}
+SQLite is the most commonly used local database, having been used in app development since the very beginning. It is cross platform, working in Android as well as IOS. It is a relational database rather than a document DB. It uses the SQL language for table initialization and to build queries. It is also ACID compliant. It is a small application, using 699 KiB of space.
+\subsubsection{Couchbase Lite}
+Couchbase Lite is a NoSQL database that is built for mobile devices. It has encryption by default when the DB data is not in use. It has a relatively small requirement for storage, needing 1-3.5 MB.
+\subsubsection{ForestDB}
+ForestDB is a Key/Value store that is built for mobile devices. The key/value store property means that each value stored in the database can be retrieved easily and quickly using the key for that given data. It functions like a hashmap or a dictionary, but is persistent on drive rather than in memory
+\subsection{Discussion}
+SQLite has benefits that are not purely technical. It is also taught in the mobile development class at OSU, which will ease development of the schema and the database queries. It is also open source and widely used, which will assist with debugging efforts if the team runs into problems when creating the database or queries. Couchbase Lite's NoSQL attribute will make iterations of the database schema while in development easier, but since it isn't as widely used, documentation may be more scarce. ForestDB's key/value format will not prove to be a good format for the application's storage needs, since the storage needs to be more complex than a key value store can provide.
+
+\subsection{Conclusion}
+The team will use SQLite because it is easy to use, well documented, open source, and familiar both to us and members of the OSU community.
+\bibliographystyle{IEEEtran}
+\bibliography{review.bib}
+
+\end{document}

@@ -1,0 +1,293 @@
+\documentclass[letterpaper,10pt,draftclsnofoot,onecolumn,compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{url}
+%\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+%\usepackage{pstricks, pst-node}
+\usepackage{inputenc}
+\usepackage[margin=.75in]{geometry}
+\usepackage[section]{placeins}
+
+\newcommand{\subparagraph}{}
+\usepackage{titlesec}
+\setlength{\abovecaptionskip}{2pt}
+\setlength{\belowcaptionskip}{0pt}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+\lstset{language=HTML,
+        showstringspaces=false}
+
+%hide toc subsubsections
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{.0in}
+
+%toc formatting for IEEE 830-1998 standards
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}{\vspace{.25cm}}}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsecaftersnum}{.}
+
+%bottom right page numbers
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\rfoot{\thepage}
+\pagestyle{fancy}
+
+%formatting specific IEEE 830-1998 Section headings
+\titleformat{\section}[block]
+  {\fontsize{12}{15}\bfseries\sffamily}
+  {\thesection.}
+  {1em}
+  {}
+\titleformat{\subsection}[block]
+  {\fontsize{10}{10}\bfseries\sffamily}
+  {\thesubsection}
+  {1em}
+  {\vspace{.1cm}}
+\titleformat{\subsubsection}[block]
+  {\fontsize{10}{10}\bfseries\sffamily}
+  {\thesubsubsection}
+  {1em}
+  {\vspace{.2cm}}
+\geometry{textheight=8.5in, textwidth=6in}
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\def\name{Aaron Leenknecht}
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {cs461 ``Senior Capstone - Fall 2019'' capstone},
+  pdftitle = {CS 461 Requirements Document},
+  pdfsubject = {Capstone Requirements Document},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{6cm}
+{\scshape\LARGE \begin{singlespace}Baby body measurement using computer vision\\ \end{singlespace} Team 26: BBM \\ Tech Review } \\
+	{\scshape\Large CS461 - Fall 2019 \par}
+	\vspace{.5cm}
+	\name \par
+    {\large \today \par} 
+	\vspace*{1cm}
+	
+\begin{abstract}
+\begin{singlespace}
+This document will outline a set of aspects that the project "Baby Body Measurements" will use. Group 26 has divided the project into nine aspects that equate to the entire application. This tech review will examine three of the nine aspects of the application.
+\end{singlespace}
+\end{abstract}
+
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+
+%removes page number on table of contents
+\thispagestyle{empty}
+
+\newpage
+
+% \section*{Revision History}
+% \begin{center}
+%     \begin{tabular}{|p{1cm}|p{7cm}|p{7cm}|p{2cm}|}
+% 		\hline
+%         PR-2 & The README documentation on GitHub shall be sufficient enough that a daily user of IDA can install this software in less than 30 minutes & The documentation present on GitHub (README) shall have installation, use, and testing instructions for Mac OSX High Sierra, Windows 10, and Ubuntu 16.04 & 1/20/19\\
+%         \hline
+%         CR-7 & The code, documentation (both formal and informal) shall be completely open-source and free for all & The code and documentation shall be open source & 1/20/19\\
+%         \hline
+%     \end{tabular}
+% \end{center}
+
+\section{Introduction}
+\begin{singlespace}
+\noindent
+Our baby body measurement application will be broken down into nine different functionalities. The first being the technology for taking the head circumference, which will be looking into the Native iOS ARkit versus other options out there on the market. The second will be looking into taking the height of the baby's body using body pose estimation (sub feature of ARkit) versus other external estimation features. The third will be a localized user database. The fourth will be chart libraries for displaying data to the user. The fifth will be looking into the user interface stack that will be used. Sixth functionality dives into which ARkit version will be more beneficial, version 2 or 3. The applications seventh will be hosting for the application programming interface, further known as API. Eighth is going to be the cloud database for the application. Finally, the ninth function being looked at is the development environment.\\ 
+
+For this tech review, it will be examining the last three functionalities that were just listed. The first functionality being looked at is the hosting for the API. The second functionality being looked at is the cloud database options. The third and final functionality will be the development environment.
+\end{singlespace}
+
+
+
+
+%\subsection{Overview}
+%\begin{singlespace}
+%\noindent
+%\end{singlespace}
+
+\section{Hosting for API}
+\begin{singlespace}
+
+Hosting for the API will be done through either the Apple app store or the Google play store. Those are the only two hosts for smart phone device applications. Google play store is the publication store for any other device besides the iPhone (Google Pixel, Androids, etc). For the baby body measurement app to be used on a smart phone without locally connecting it to Xcode simulation, it must be published to at least one of the two stores.
+\end{singlespace}
+\subsection{Options}
+
+
+\subsubsection{Apple App Store}
+\begin{singlespace}
+\noindent
+The Apple app store is a closed source ecosystem, meaning that Apple regulates application entrances into the app store. The pros to hosting in the app store is that it's more secure. You get a portal that allows for easy navigation of all applications that are published with lots of features. Your provided with testing tools for the application such as TestFlight. Another feature is the app analytic tool that will give the developer plenty of useful information about how the application is doing in the app store. The cons for hosting on the Apple app store is that it costs 99 dollars a year to even attempt to publish an application. Since the apps are regulated on entrance, it's much harder to get approved. Apple's regulations must all be met in order to proceed.
+\end{singlespace}
+
+\subsubsection{Google Play Store}
+\begin{singlespace}
+\noindent
+The Google play store is an open source ecosystem, meaning that publishing an open source application is desired and not heavily regulated. Pros would be that there are few regulations that need to be met in order to publish the application. Completely free to publish an application and use the play store. Cons for the Google play store would be a decrease in security due to low regulations and open source ecosystem. Typically more competition due to similar apps since the store is open source ecosystem. 
+\end{singlespace}
+
+\subsubsection{Discussion}
+\begin{singlespace}
+\noindent
+There are more users for the Google play store than the alternative Apple app store on a global level but in the United States the user about equal. Since the developers are based in the US and plan on use in the US, the amount of consumers is about equal. Going through all the regulations of getting it published on the Apple app store would likely catch any infractions throughout the application. Cost wise, it's always nice to have things be free but the tools provided for paying the app store cost would be beneficial.
+\end{singlespace}
+
+\subsubsection{Conclusion}
+\begin{singlespace}
+\noindent
+In conclusion, the baby body measurement application will be using the Apple app store for hosting/publishing. One of the key reasons is that our client specifically requested that the application be able to run on an iOS device, which uses the Apple app store. The rest of the research has been aimed towards developing the app for an iOS device which is compatible with the Apple app store. The application would need to be developed differently than planned for an application being published in Google play store.
+\end{singlespace}
+
+
+
+\section{Cloud Database}
+\begin{singlespace}
+\noindent
+A cloud database will be implemented for a plethora of reasons. It will act as a backup database to our localized database. Its main function will be to hold measurement values for each user so that parents/guardians can see the progression of growth over a period of time. A secure cloud database will also hold values for a healthy baby's measurements so that we can pull the info and give it to the user. \\ 
+
+Criteria for the cloud database include the need to be compatible with an iOS app written in Swift. 
+\end{singlespace}
+\subsection{Options}
+
+
+\subsubsection{DynamoDB}
+\begin{singlespace}
+\noindent
+DynamoDB is a cloud database that is offered by Amazon Web Services. Some pros that come with DynamoDB is that it's serverless, making the management level decrease. It provides consistent, millisecond response times for single digit queries. Amazon Web Services has another tool called AppSync that makes the ideal backend for an iOS application, making the integration from application to database smooth and compatible. There is a free trial with this database, including an always free very small scale plan for development purposes. Some cons with DynamoDB is that it's only accessible through Amazon Web Services, locking the application into a single cloud provider and having no local testing functionalities. The primary key values can only have two attributes connected to them, limiting the query system. No schema visualization/manipulation tool available.
+\end{singlespace}
+
+\subsubsection{Azure SQL Database}
+\begin{singlespace}
+\noindent
+The Azure SQL database is offered by Microsoft. Pros that come with using this database is that it uses a relational schema that designs the data being stored in the database, giving everything a set of attributes according to the schema. Azure provides mobile application connection from the application to the database through its own software. Microsoft gives Azure users a one year free trial to all products. Some cons to the Azure SQL database are that it is purely SQL, so integrating with a local database must also be SQL. The structure of the collections in the database can't be altered and every entry must have exactly the same attributes. That means altering the database schema would be much harder than adding a new value, like a no SQL would be able to do. This database is only available through the Microsoft Azure cloud platform.
+\end{singlespace}
+
+\subsubsection{MongoDB Atlas}
+\begin{singlespace}
+\noindent
+MongoDB Atlas is a noSQL database that is highly versatile, made by MongoDB. The pros to using MongoDB Atlas is that it's a noSQL, providing the database with a very flexible set data entries. Data can have any amount of secondary attributes assigned to them to hold information. MongoDB Atlas provides a visualization feature called Compass, allowing for visualization and manipulation of the database. MongoDB can be run locally on a development machine for testing purposes. Using the MongoDB Atlas, any of the major three cloud platforms can be selected for versatility (Microsoft Azure, Amazon Web Services or Google Cloud Platform). Rich query language for querying data sets from the database. Using MongoDB Stitch, allows for remote connecting the iOS app to the database. Some cons to MongoDB Atlas are that it requires a plethora of different software pieces working together, so initial setup will be more complicated. MongoDB Stitch is now deprecated, so eventually the database would need to be updated when they switch to MongoDB Realm.
+\end{singlespace}
+
+\subsubsection{Discussion}
+\begin{singlespace}
+\noindent
+The Amazon Web Services DynamoDB is a highly scaling database, probably the best out of the three for massive amounts of data sets. It's user interface is not friendly, making it a tough start. It would definitely be able to hold the data and has good security with reliable backups. The It's similar to MongoDB Atlas in that it is noSQL, having flexible data collections. The user interface for MongoDB is very clean but it requires the most pieces of software to connect with an iOS app. MongoDB is the most flexible in terms of migration, because it can jump to and from any of the three major cloud platforms. Azure SQL database is the only database that includes a relational database schema and has firm restrictions when it comes to data attributes. They all have some sort of free trial, with MongoDB Atlas and DynamoDB having a permanent low resource database for free.
+\end{singlespace}
+
+\subsubsection{Conclusion}
+\begin{singlespace}
+\noindent
+The conclusion is that MongoDB Atlas will be the best choice for this application. The simplicity of it's UI will be excellent when intially creating the database. It allows for more flexibility when it comes to choosing the specifics of the database. Our application doesn't need a relational schema design, making the fluid nature of MongoDB enticing. The documentation of connecting MongoDB Atlas to an iOS app is explicit and easy to follow.
+\end{singlespace}
+
+
+
+\section{Development Environment}
+\begin{singlespace}
+
+The development environment is essential for creating the best application possible. It provides syntax correction when developing the code, preventing any small syntax mistakes that would cause errors. Some environments allow testing right inside the environment for simplicity and usefulness. A good development environment allows for maximum efficiency and increased accuracy. The write and readability of an environment make it easier to understand while coding.\\
+
+Criteria for the development environment is that it needs to support swift, the language for developing iOS applications. 
+\end{singlespace}
+\subsection{Options}
+
+
+\subsubsection{Xcode}
+\begin{singlespace}
+\noindent
+Xcode is an development environment for building iOS apps. Its pros consist of automatic completion and full syntax highlighting for swift. It can have split views to work on or compare multiple areas of the code at one time. User interface can be customized to whichever works best for the project and developers. It has an integrated interface builder for building user interface without typing any code. It includes a simulator or the option to connect a device to test the application. Cons with Xcode would be that it can only be downloaded through the Mac store. It does have a few known glitches with the development environment.
+\end{singlespace}
+
+\subsubsection{AppCode}
+\begin{singlespace}
+\noindent
+AppCode is a development environment that was designed after Xcode for machines other than Mac operating systems. Pros for Appcode would be that it can be downloaded on any operating system. It includes a smart editor which auto completes and formats things in a neat manner. It helps to refactor code and generating code. AppCode includes a code analysis which looks at the logic behind the syntax, warning of any errors. Navigation and search features help locate words, functions, etc. throughout the entire project. The editor can be customized to whatever needs the developer has. There is a run feature that allows for console output with the code. Cons to AppCode is that there is no simulation/testing mode. No storyboard options are given, making user interface setup very complicated.
+\end{singlespace}
+
+\subsubsection{Atom}
+\begin{singlespace}
+\noindent
+Atom is a development environment create by GitHub. Pros would definitely include the ease it has with integration to GitHub. It has swift packages that help to automatically complete swift code, making the coding more efficient. Another package is for swift debugging, which analyzes the code for syntax errors and gives the developer the correct syntax. It can easily be split up into multiple tabs and windows, allowing for multitasking. Atom can be downloaded and used on any operating system, making it inclusive to all. Cons to Atom would be that it has no run/test features. It doesn't have a user interface building option. 
+\end{singlespace}
+
+\subsubsection{Discussion}
+\begin{singlespace}
+\noindent
+Xcode is the native iOS developers tool, so everything a developer needs is there. Atom does some things very well, mainly the text editor itself is far more clean and desirable than Xcode or AppCode. Not every member of our team has a Mac OS device to develop on but virtual machines can be set up to access Xcode. Writing correct syntax can be done in all three development environments. I big thing that Xcode and AppCode have that Atom doesn't have is the testing environment to user test the application.
+\end{singlespace}
+
+\subsubsection{Conclusion}
+\begin{singlespace}
+\noindent
+The best development environment for the baby body measurement application would be Xcode. It's specifically supposed to be an iOS app and Xcode is the native iOS app development tool. It may not be as nice as Atom in terms of formatting code but it has every aspect needed for development in one place. The simulation feature that developers can connect devices to user test the application is a huge positive.
+\end{singlespace}
+
+\newpage
+
+\section{References}
+\doublespacing
+Amazon Redshift Vs DynamoDB - The Complete Comparison. (2019, September 25). Retrieved from \\ https://hevodata.com/blog/amazon-redshift-vs-dynamodb/.\\ 
+
+Elamalani. (n.d.). Create an iOS app on Azure App Service Mobile Apps. Retrieved from https://docs.microsoft.com/en-us/azure/app-service-mobile/app-service-mobile-ios-get-started.\\ 
+
+Klymenko, V. (2019, July 18). Server-side Swift: how to use Vapor 3 with MongoDB. Retrieved from https://medium.com\\/@volodymyrklymenko/server-side-swift-how-to-use-vapor-3-with-mongodb-baf9b79c8d0.\\ 
+
+Comparing DynamoDB and MongoDB. (n.d.). Retrieved from https://www.mongodb.com/compare/mongodb-dynamodb.\\ 
+
+Rangel, D. (2015). DynamoDB: everything you need to know about Amazon Web Service's NoSQL database. Retrieved from https://aws.amazon.com/dynamodb/.\\ 
+
+Celestine, A., Brendan, Oliveira, A. C. de, Gaasbeek, M. J., Ching, C., Fortna, L., and IYOU Sport Band. (2019, November 12). How to Submit Your App to the App Store in 2019 (Updated). Retrieved from https://codewithchris.com/submit-your-app-to-the-app-store/.\\ 
+
+Coulson, M. (2018, February 2). Top 5 IDE Tools for iOS App Development. Retrieved from http://findnerd.com/list/view/-Top-5-IDE-Tools-for-iOS-App-Development-/35743/.\\ 
+
+Features - AppCode. (n.d.). Retrieved from https://www.jetbrains.com/objc/features/.\\ 
+
+IOS vs Android: Which Should You Build Your Mobile App on First. (2019, November 5). \\Retrieved from https://buildfire.com/ios-android-which-to-develop-on-first/.\\ 
+
+Publish your app  :   Android Developers. (n.d.). Retrieved from https://developer.android.com/studio/publish.\\ 
+
+SQL Database – Cloud Database as a Service: Microsoft Azure. (n.d.). Retrieved from https://azure.microsoft.com/en-us/services/sql-database/.\\ 
+
+Stevestein. (n.d.). Servers - Azure SQL Database. Retrieved from https://docs.microsoft.com/en-us/azure/sql-database/sql-database-servers.\\ 
+
+Tranchedone, G. (2017, February 20). Using Atom for Web Development with Swift. Retrieved from https://\\theswiftwebdeveloper.com/using-atom-for-web-development-with-swift-6ab42ac415c2.\\ 
+
+Xcode IDE Reviews: Pricing Software Features 2019. (n.d.). Retrieved from https://reviews.financesonline.com/p/xcode-ide/.
+
+\vfill
+
+
+
+\end{document}

@@ -1,0 +1,264 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{setspace}
+\setlength\parindent{0pt}
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		BBM}
+\def \CapstoneTeamNumber{		26}
+\def \GroupMemberOne{			Aidan Grimshaw}
+\def \GroupMemberTwo{			Khoa Tran}
+\def \GroupMemberThree{			Aaron Leenknecht}
+\def \CapstoneProjectName{		Baby Body Measurement Using Computer Vision}
+\def \CapstoneSponsorPerson{		D. Kevin McGrath}
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+				%Requirements Document
+				% Technology Review
+				Design Document
+				}
+			
+\newcommand{\NameSigPair}[1]{\par
+\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\par\vspace{-12pt} \textit{\tiny\noindent
+\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+ %3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
+    \pagenumbering{gobble}
+    \begin{singlespace}
+    %	\includegraphics[height=4cm]{coe_v_spot1}
+        \hfill 
+        % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+        %\includegraphics[height=4cm]{CompanyLogo}   
+        \par\vspace{.2in}
+        \centering
+        \scshape{
+            \huge CS Capstone \DocType \par
+            {\large\today}\par
+            \vspace{.5in}
+            \textbf{\Huge\CapstoneProjectName}\par
+            %\vspace{.7in}
+            %\begin{abstract}
+                %This document will describe the design viewpoints and implementation behind the four components of the baby body measurement application, and how they will interact to make up the application as a whole. The four components are the head circumference measurement, height measurement, user interface design, and local database management system.
+            %\end{abstract}
+            \vspace{10mm}
+            %\vfill
+            {\large Prepared for}\par
+            \vspace{5mm}
+            % \Huge \CapstoneSponsorCompany\par
+            %\vspace{5mm}
+            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            \vspace{5mm}
+            {\large Prepared by }\par
+            \vspace{5mm}
+            Group\CapstoneTeamNumber\par
+            % 5. comment out the line below this one if you do not wish to name your team
+            \CapstoneTeamName\par 
+            \vspace{5pt}
+            {\Large
+                %\NameSigPair{\GroupMemberOne}\par
+                %\NameSigPair{\GroupMemberTwo}\par
+                %\NameSigPair{\GroupMemberThree}\par
+                
+                \GroupMemberOne\par
+                \GroupMemberTwo\par
+                \GroupMemberThree\par
+            }
+            \vspace{.8in}
+        }
+        \begin{abstract}
+            This document will describe the design viewpoints and implementation behind the four components of the baby body measurement application, and how they will interact to make up the application as a whole. The four components are the head circumference measurement, height measurement, user interface design, and local database management system. Measurements will be taken through the camera of the iOS device in cooperation with ARkit software. A database will be used to save data to each individual user, categorized with a unique identifier so that data can be pulled later in terms on visualizations and other health information in accordance to their specific baby. The user interface will gently and cleanly guide the user through each interaction of the application, making it flow in an understandable manner.
+        \end{abstract}     
+    \end{singlespace}
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+% 7. uncomment this (if applicable). Consider adding a page break.
+%\listoffigures
+%\listoftables
+\clearpage
+
+
+\section{Definitions}
+\begin{itemize}
+    \item UI: user interface
+    \item Database management system (DBMS): an interface that allows the application to perform create, read, update, and delete operations on the local database.
+    \item iOS: mobile operating system for the iPhone.
+    \item ARKit: a framework integrating an iOS device's camera and motion features to produce augmented reality experiences.
+    \item Application Programming Interface (API): an intermediary software that allows applications to communicate with one another.
+    \item Entity relationship diagram (ER diagram): defines relationships between tables in a database along with the attributes associated within each table.
+    
+\end{itemize}
+
+\section{Overview}
+\subsection{Scope}
+The purpose of this application will be to take a select couple of baby measurements and provide comparisons based on the measurements.
+As a result, it can be broken down into four components:
+
+\begin{itemize}
+    \item Head circumference measurement
+    \item Body Height measurement
+    \item User interface (UI)
+    \item Local database management system (DBMS)
+\end{itemize}
+
+%The application will be suitable for the users that want to find joy in the baby's growth or the nervous users who are concerned with a baby's level of growth. A user will receive verified and meaningful feedback based on the measurements they take.
+
+\subsection{Purpose}
+
+There are several main purposes correlated with this application. Firstly, it is to provide a simple and non-intrusive way to take measurements of a baby's body. Secondly, it is to give joy to a user who is interested in seeing their baby develop. Thirdly, it is to inform nervous users where the baby falls in terms of standardized expected growth and development. Lastly, this application is bring the common practice of marking a wall with a child's height into the 21st century.
+
+\subsection{Intended Audience}
+
+The audience this app reaches out to are parents/guardians of babies. There are two types of parents/guardians who will be using this application. The first targeted audience member will be worried parents who aren't sure about their child's growth. The second targeted member are the parents who find genuine happiness from knowing that their baby has grown a tiny morsel from one day to the next. \\
+
+%\section{Definitions}
+%\begin{itemize}
+
+%\end{itemize}
+
+\section{Project Context}
+\subsection{Hardware}
+The application will require an iOS device with the hardware of iPhone 6S or later to enable the measurement API.
+
+\subsection{Software}
+\begin{itemize}
+  \item ARKit: Augmented reality framework for finding physical measurements using an iOS device's camera.
+  \item XCode: Integrated development environment for developing the entire application to run on iOS devices.
+  \item SQLite: Lightweight, fast, and reliable database for applications minimal saving and queuing.
+  \item GitHub: Used by developers to collaborate and share files.
+  \item Discord: Developers' meeting room for collaboration and communication.
+\end{itemize}
+
+
+\section{Design Description}
+The following will discuss the stakeholders, views, viewpoints, and rationale behind the design of the project.
+\subsection{Design stakeholders}
+
+\subsubsection{Kevin McGrath}
+Mr. McGrath hopes to use our application to measure his children and track their growth over time once it's completed. His desire is for the application to easily and quickly take measurements. The following two measurements were the only ones he requested: body height and head circumference. He requested for the application to be built with iOS device capabilities.
+
+% \subsection{Design views}
+
+% \subsubsection{Kevin McGrath}
+
+\subsection{Design Viewpoints}
+
+\subsubsection{Head Circumference Measurement}
+%Head circumference measurement is difficult to make using just images of the head. We discussed several different approaches for this.\\
+
+\paragraph{Approach}
+
+%\bold{ARKit + TFLite pose estimation}\\
+
+%TFLite is a Tensorflow machine learning framework optimized for mobile and IOT devices with energy use and processing power constraints. The framework contains many prebuilt ML models that can be used by developers for
+
+The ARKit framework does not provide a method for measuring round 3D objects. However, it is able to give accurate measurements of lines created from reference points on a camera, as demonstrated in the Measure app for iOS. A possible approach is to emulate that app. The user will be asked to measure the length and width of the baby's head by setting start and end points for each measurement that is taken. Our application will calculate the circumference of the oval from the length and width of the baby's head, which is roughly an oval. The formula is as follows:\\
+
+$C = 2\pi\sqrt{\frac{a^2 + b^2}{2}}$\\
+
+\paragraph{Concerns}
+
+The chief concern with relying on the user to perform Measure app-like measurements is error handling. The application cannot ascertain whether the user has measured length and width accurately from forehead to chin and side to side, respectively.\\
+
+Additionally, the team has tested this method on a real baby and found that he moved his head frequently. This made it hard to measure length and width, given that while the endpoint of the head measurement is being selected, the babies head may move, making the starting point invalid.\\
+
+% Height measurement
+\subsubsection{Height Measurement}
+
+\paragraph{Approach}
+
+ARKit 3 has a whole class dedicated to building a skeleton of the human body with sub features to interact with the skeleton. As a sub-feature, it is able to estimate the height of such skeleton.\cite{automaticSkeletonScaleEstimationEnabled}.\\
+
+\paragraph{Concerns}
+
+There are two concerns that go along with using ARkit 3 to measure height which would be hardware limitation and accuracy. Firstly, height estimation is only available in ARKit 3, which is only supported on iOS devices powered by the A12 chip. These include the iPhone XS, 11-inch and 12.9-inch 2018 iPad Pros, or better\cite{ARKit3_support}. The team currently does not have such a device. The consumer base of the iPhone XS line is also very small; as of December 2018, only 5.48\% of iPhones are the XS and XS Max \cite{iPhone_percentage}.\\
+
+Secondly, the team has not yet tested the skeleton height estimation capability. Therefore, it is not clear whether the feature will give accurate enough measurement.\\
+
+\paragraph{Alternative Approach}
+
+The team has tested the iOS Measure app on a real baby and found height measurement to be quick and straightforward. We measured the baby from head to toe and got the same value as the previous manual measurement. Therefore, an alternative approach to height measurement is to emulate the Measure app, which asks the user to measure the baby from head and toe. However, it has a similar problem to head circumference measurement. While this is easier than taking head measurements, because the application must rely on the user to manually perform the measurement, it is still prone to user error and lack of error handling.
+
+\subsubsection{User Interface}
+
+\paragraph{Approach}
+
+The team will use SwiftUI for user interface development. It is a declarative language describing what design components (e.g. buttons, charts) should appear on the screen. The integration with XCode also has a drag-and-drop interface that requires little to no coding.\\
+
+There are two layers to the user interface: one contains a camera-like interface for getting measurements, and another for reporting those measurements.\\
+
+The camera interface by default measures height. It only requires the user to point the iOS device's camera at a baby until the application can get a height estimation. Additionally, there is a button that toggles head circumference, which relies on the user to draw lines representative of the head's length and width.\\
+
+The reporting interface gives the user the measurements and contain a growth chart over time by default. Additionally, there is a button that toggles an overlay of the standard WHO or CDC growth chart, so the user can see how their baby is growing in relation to the standardized expected growth. 
+
+\paragraph{Concerns}
+
+Aside from ensuring a smooth and usable experience for the user, the UI design is straightforward.
+
+\subsubsection{Local Database}
+
+In order to track baby growth over time, we must store it the height and head width measurements in a way that is easily read back in the future. The team decided that this would be implemented as a local database because it keeps the users data private and keeps the application hosting costs to a minimum.\\
+
+\paragraph{Approach}
+
+The team will use a relational database for storing user data locally within the application. The database will have 3 tables. One table will store the different babies that the application has measured previously. A different table will be used to store height measurements. A third table will be used to store head width measurements. There is no need for a user table due to local database, allowing for no user authorization.\\
+
+\begin{center}
+    \includegraphics[scale=0.8]{ERdiagram}\\
+    Figure 1. Application Entity Relationship Diagram \\
+\end{center}
+
+\paragraph{Concerns}
+
+The choice of a relational database, with a defined schema may make the initial database development slower as the schema is fully defined and will be more difficult to iterate on schema development than a document database. However, this trade off will be worth it because the schema is relatively simple for this project, the tooling is faster and better for relational databases on mobile, and because a well defined schema will make it easy for the developers to understand and query the database.\\
+
+\subsection{Design Relations}
+
+\subsubsection{Design Overview}
+
+The users will start off the application with the user interface, introducing the application on the first page they see. The first interface page will lead the user into taking the body height estimation with the camera/ARkit mode which will send measurements to the database. Once the user has taken the body height measurement, they will be introduced with another user interface page that will provide the choice of taking additional measurements. If the user proceeds with taking additional measurements (head circumference, etc.) then they will be taken back into camera/ARkit mode which will also send measurements to the database. If they only desire the body height measurement then they will be taken to the information section of the application. The user interface will give them choices on visualizations to see how much the baby has grown since they started using the application or if they want more health related information on where the baby is in terms of average growth. Whatever information the user decides to see, the database measurements will be used to decide what to show the user.
+
+\subsubsection{Head Circumference and Body Height}
+
+Head circumference measure has a large room for error and a very different approach to height measurement, meaning the application will treat the feature as secondary. The application's default feature will be to capture the baby's height; head circumference measurement is a feature the user must switch on. Body height is an overall more sought out measurement which is also why it takes the default position over head circumference.
+
+\subsubsection{Body Height and User Interface}
+
+Body height is the default measurement when using this application so it will be presented as the default option that the user doesn't need to choose. On opening the application, the user will see a screen that will introduce the application, followed by the the camera interface to begin body height estimation. The user will select the "done" button when the measurement has been taken so they can continue on with the user interface.\\
+
+Subsequently, the reporting interface reports height measurement and produces a growth chart.
+
+\subsubsection{Head Circumference and User Interface}
+The user will be given the choice by the user interface on whether or not they want to take the head circumference measurement. If the user selects the button that correlates to taking the measurement, the camera/ARkit mode will be reintroduced so the user can successfully obtain the measurement. The user will select the "done" button when the length and width measurements have been taken so they can continue on with the user interface.\\
+
+Subsequently, the reporting interface reports head circumference measurement and produces a growth chart.
+
+\subsubsection{Measurements and Database}
+When a measurement is gathered from the camera/ARkit mode, that physical measurement will be transferred to the database. When producing charts for the user, the measurements will be pulled from the database before being shown in the user interface. Measurements will also be pulled from the database when deciding what information will be passed to the user when seeking how the baby compares to an average healthy baby.
+
+\subsubsection{Database and User Interface}
+The user interface will changed based on what the database return values are. The users will see charts and visualizations that will be created from the measurements in the database that correlate to their unique identifier. Based on what information the user wants, the database will be queried in different ways. Possible queries would be requesting body heights from the past six measurements or receive health information based on a specific measurement.
+
+
+\subsection{Design Timeline}
+ 	{\includegraphics[width=.8\textheight]{"Requirments Gantt Chart".png}}\par
+	{Figure 2. Gantt Chart}
+
+\section{Conclusion}
+Several viewpoints will be integrated together to make our application function correctly. Height and head measurements must be taken as accurate as possible, with a small margin of error. These measurement data will be integrated with the user interface. This will allow the app to display the information in context to the user, as well as switch between different measurement modes. The application will also interface with a database to make the measurements that are taken persistent over many uses of the app. Together, these integrations work in tandem to make this app functional, clear, and persistent. 
+
+
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{Design.bib}
+\end{document}

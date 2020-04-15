@@ -195,7 +195,7 @@ The following sections will outline a high-level description of the product. Spe
 \subsection{Product Functions}
 \begin{singlespace}
 \noindent
-For ease of use, we think the user would appreciate a simple, snappy interface. On the surface, the UI mimics a smart capture application, such as a mobile check or document scanner. The user simply points the camera at a baby; once the iOS device gathers sufficient data for measurement, the UI will snap to the "results" screen. The user can choose whether the results are displayed as a table or chart. Furthermore, they can ask for a comparison to standard growth charts.
+Users will measure their baby in a similar manner to measuring with a ruler. The application will mimic the ruler by placing two dots on the phone's screen and automatically measuring the distance between the points. Users will see their baby through the camera and be able to interact with the virtual environment that the camera creates. General health information can be read in text form or they can visualize their baby's growth in a comparative line chart that takes in data from the World Health Organization.
 \end{singlespace}
 
 \subsection{User Characteristics}
@@ -207,23 +207,23 @@ The user will be using this application for one of two purposes: family fun or m
 \subsection{Constraints}
 \begin{singlespace}
 \noindent
-Our application is not meant to be a replacement for scientific instruments. In other words, it's not recommended for pediatric use. It's a handy tool for a parent who would like a "good enough" estimate of their baby's head circumference and height.
+Our application is not meant to be a replacement for scientific instruments. In other words, it's not recommended for pediatric use. It's a handy tool for a parent who would like a "good enough" estimate of their baby's height.
 \end{singlespace}
 
 \subsection{Assumptions and Dependencies}
 \begin{singlespace}
 \noindent
-According to Apple, "ARKit 3 features will only be supported on iPhones and iPads that are powered by an A12 Bionic processor or newer"\cite{arkit3support}. These include the iPhone XS, iPhone XS Max, iPhone XR, and the 11-inch and 12.9-inch 2018 iPad Pros. We assume that a sizable portion of the consumer base own these devices.\\
+ARkit requires an iPhone 6s or above to run the software. The application will be built directly for an iPhone 11 since that is the testing tool we have but should have a responsive design for all iPhones capable of running ARKit.
 
-Obviously, our application is dependent on the ARKit 3 framework, which provides methods for mapping points on the body and measuring distances.\\
+Core Data is being used as a local database within the iPhone.
 
-SQLite or another database management system is being considered for storing measurement data locally on the iOS device.
+Charts library by Daniel Ghindi are being used for displaying a comparative line chart.
 \end{singlespace}
 
 \subsection{Apportioning of Requirements}
 \begin{singlespace}
 \noindent
-We currently do not have the depth of technical knowledge for the work ahead of us to apportion it. We certainly have done preliminary research into the ARKit framework, but we haven't developed a technical plan with concrete steps and components. We will be dividing up the components between our 3 members equally while all working cohesively. We will probably have more development effort dedicated to ARKit and computer vision vs general UI.
+Khoa Tran will being working on the ARKit measuring portion of the application. Aaron Leenknecht will be working on the user interface and the charting library. Aidan Grimshaw will be working on the local database and the charting library.
 \end{singlespace}
 
 \section{Specific Requirements}
@@ -239,7 +239,7 @@ The two separate interfaces: user and software, depict the same application. The
 \subsubsection{User Interfaces}
 \begin{singlespace}
 \noindent
-The concept behind the user interface is to keep it as clean and simple as possible. Users shall begin by opening the app into a screen that follows the camera. A popup will open upon initialization due to accessing their camera being needed. The user will be prompted/told to hold the camera to get a view of the entirety of the baby from the front. The user would then be prompted/told to move the camera to get a view from the top of the baby's head. Once the application has had both necessary views, the user will be met with a new screen holding the measurements that were calculated: body height and head circumference. The user will also have an button/option to get further information that compares the measurements of their baby to a medically healthy, average baby.\\
+The concept behind the user interface is to keep it as clean and simple as possible. Users shall begin by opening the app into a hub screen with five options available to them. At the top will be a create profile button since that is the first thing the user must accomplish when using the application. A picker wheel with all profiles will be available to the user as the next item in the column. The next three items in the column will be matching buttons that go to: take measurement, view comparative chart, and get health information.\\
 \end{singlespace}
 
 \subsubsection{Software Interfaces}
@@ -257,29 +257,24 @@ The functional requirements detail the features and functions that the end produ
 
 \textbf{ID: FR-0}\\
 TITLE: Measure baby height\\
-DESC: Need to research various different paths to implement baby height measurement, keeping in mind multiple joints and measurement points that need to be taken into account\\
+DESC: Height must be measured using the camera on an iPhone to emulate a virtual environment where data calculations can be done.\\
 RAT: Core requirement of being able to measure baby growth and natural progress\\
-DEPEND: May make use of the ARBodyTrackingConfiguration class in ARKit to automatically track body height\\
+DEPEND: ARKit\\
+
 
 \textbf{ID: FR-1}\\
-TITLE: Measure baby head width\\
-DESC: Use basic point to point measurement to measure baby head width starting from the ARKit body tracking head centerpoint\\
-RAT: Secondary tracking metric for baby growth, screening for congenital microcephaly\\
-DEPEND: May make use of ARFaceAnchor class in ARKit to find head centerpoint\\
-
-\textbf{ID: FR-2}\\
 TITLE: Store baby measurements\\
 DESC: Store all baby measurements in local database under child entities such that each parent can have multiple children which have a timeseries array of height and head width measurements. May use SQLite or some noSQL equivalent. May do an online DB for user backups depending on extra time\\
 RAT: Users should be able to compare their baby measurements against previous measurements to track growth\\
-DEPEND: SQLite or similar\\
+DEPEND: Core Data\\
 
-\textbf{ID: FR-3}\\
+\textbf{ID: FR-2}\\
 TITLE: Baby growth charts\\
 DESC: The application should have charts that allow the user to see the baby's growth over time, and to see the baby's growth over time overlaid with growth percentiles for a healthy child of the baby's age\\
 RAT: Users should be able to check growth in a friendly and intuitive way that allows them to quickly grasp information\\
-DEPEND: Some swift charting library, maybe AAChartKit-Swift\\
+DEPEND: Charts by Daniel Ghindi\\
 
-\textbf{ID: FR-4}\\
+\textbf{ID: FR-3}\\
 TITLE: Baby Choosing Menu\\
 DESC: The user should be able to choose between multiple different children to measure. Each child should have a different series of measurement records associated with it\\
 RAT: Parents should be able to measure each of their children and store the results separately if they have multiple children\\
@@ -306,22 +301,6 @@ DEPEND: None\\
 
 \end{singlespace}
 
-\subsection{Compatibility and Compliance Requirements}
-\begin{singlespace}
-\noindent
-The compatibility and compliance requirements concern the software and systems to which the end product must be compatible.\\
-
-\textbf{ID: CR-0}\\
-TITLE: HIPPA Compliance\\
-DESC: We need to make sure that our application does not violate HIPPA healthcare privacy laws\\
-RAT: The penalties for HIPPA noncompliance are based on the level of negligence and can range from \$100 to \$50,000 per violation.\\
-DEPEND: None\\
-
-\end{singlespace}
-
-\section{Gantt Chart}
- 	{\includegraphics[width=.8\textheight]{"Requirments Gantt Chart".png}}\par
-	{Figure 1. Gantt Chart}
 
 
 \vfill
@@ -343,3 +322,4 @@ Group Signature & Date\\
 \bibliography{requirements/req.bib}
 
 \end{document}
+
